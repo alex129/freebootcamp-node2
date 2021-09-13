@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 
 app.get("/json", (req, res) => {
     let message = "Hello json";
-    if(process.env.MESSAGE_STYLE == "uppercase")
+    if (process.env.MESSAGE_STYLE == "uppercase")
         message = message.toUpperCase();
 
     res.json({
@@ -23,13 +23,19 @@ app.get("/json", (req, res) => {
     });
 });
 
-app.get('/now', function(req, res, next) {
+app.get('/now', function (req, res, next) {
     req.time = new Date().toString();  // Hypothetical synchronous operation
     next();
-  }, function(req, res) {
+}, function (req, res) {
     res.json({
         time: req.time
     });
-  });
+});
 
- module.exports = app;
+app.get("/:word/echo", (req, res) => {
+    res.json({
+        echo: req.params.word
+    });
+});
+
+module.exports = app;
